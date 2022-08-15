@@ -1,0 +1,29 @@
+//Recupération des données de l'API
+
+
+//Sélection élément HTML ou afficher produits
+
+
+//Affichage des produits sur la page d'acceuil
+async function showProducts() {
+    await fetch("http://localhost:3000/api/products")
+        .then(function (res) {
+            return res.json();
+        })
+        .then(function (data) {
+            return (products = data);
+        });
+
+   
+    products.forEach((product) => {
+        document.querySelector("#items").innerHTML += `
+            <a href="./product.html?id=${product._id}">
+            <article>
+                <img src="${product.imageUrl}" alt="${product.altTxt}" />
+                <h3 class="productName">${product.name}</h3>
+                <p class="productDescription">${product.description}</p>  
+            </article>
+            </a>`;
+    });
+}
+showProducts();
