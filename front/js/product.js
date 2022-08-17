@@ -6,27 +6,26 @@ let idProduct = params.get("id");
 
 
 // Affichage du produit
-const showProduct = async function () {
-    await fetch(`http://localhost:3000/api/products/${idProduct}`)
-        .then(function (res) {
-            return res.json();
-        })
-        .then(function (data) {
-            choiceProduct = data;
+
+fetch(`http://localhost:3000/api/products/${idProduct}`)
+    .then(function (res) {
+        return res.json();
+    })
+    .then(function (data) {
+        let choixColor = document.querySelector("#colors");
+        document.querySelector(".item__img").innerHTML = `<img src="${data.imageUrl}" alt="${data.altTxt}">`;
+        document.getElementById("title").textContent = data.name;
+        document.getElementById("price").textContent = data.price;
+        document.getElementById("description").textContent = data.description;
+        data.colors.forEach((option) => {
+            choixColor.innerHTML += `<option value="${option}">${option}</option>`;
         });
-
-
+   })
+   .catch(function (err) {
+    console.log("Oh no", err)
     
-    let choixColor = document.querySelector("#colors");
-    document.querySelector(".item__img").innerHTML = `<img src="${choiceProduct.imageUrl}" alt="${choiceProduct.altTxt}">`;
-    document.getElementById("title").textContent = choiceProduct.name;
-    document.getElementById("price").textContent = choiceProduct.price;
-    document.getElementById("description").textContent = choiceProduct.description;
-    choiceProduct.colors.forEach((option) => {
-        choixColor.innerHTML += `<option value="${option}">${option}</option>`;
-    });
-};
-showProduct();
+   });
+    
 
 
 //Ajouter produit au panier lors du clique
@@ -49,7 +48,7 @@ document.getElementById("addToCart").addEventListener("click", function (e) {
         let indexLoop = 0;
 
         // ajout des elt du panier dans un tableau
-        let basketElement = [{ image, imageAlt, name, price, choixOpt, qty, productID }];
+        let basketElement = { image, imageAlt, name, price, choixOpt, qty, productID };
 
         //Déclaration au format js de la clé produit stocké dans le local storage
         let localstorageBasket = JSON.parse(localStorage.getItem("produit"));
@@ -63,8 +62,8 @@ document.getElementById("addToCart").addEventListener("click", function (e) {
         //Avant de stock dans local storage, on verifie si nom et option sont =, si = alors on incremente qty
         else {
             for (let i = 0; i < localstorageBasket.length; i++) {
-                if (localstorageBasket[i][0].name === name && localstorageBasket[i][0].choixOpt === choixOpt) {
-                    localstorageBasket[i][0].qty += qty;
+                if (localstorageBasket[i].name === name && localstorageBasket[i].choixOpt === choixOpt) {
+                    localstorageBasket[i].qty += qty;
                     indexLoop = 1;
                 }
             }

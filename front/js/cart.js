@@ -11,20 +11,20 @@ function showBasket() {
     else {
         for (i = 0; i < basket.length; i++) {
             document.querySelector("#cart__items").innerHTML += `
-    <article class="cart__item" data-id="${basket[i][0].idProduct}">
+    <article class="cart__item" data-id="${basket[i].productID}">
         <div class="cart__item__img">
-            <img src="${basket[i][0].image}" alt="${basket[i][0].imageAlt}" />
+            <img src="${basket[i].image}" alt="${basket[i].imageAlt}" />
         </div>
         <div class="cart__item__content">
             <div class="cart__item__content__titlePrice">
-                <h2>${basket[i][0].name}</h2>
-                <p>${basket[i][0].price}</p>
-                <p>Couleur: ${basket[i][0].choixOpt}</p>
+                <h2>${basket[i].name}</h2>
+                <p>${basket[i].price}</p>
+                <p>Couleur: ${basket[i].choixOpt}</p>
             </div>
             <div class="cart__item__content__settings">
                 <div class="cart__item__content__settings__quantity">
                     <p>Qté :</p>
-                    <input index="${[i]}" onchange="getNewQty(this)" id="cartQty" type="number" class="itemQuantity" name="itemQuantity" min="0" max="100" value="${basket[i][0].qty}" />
+                    <input index="${[i]}" onchange="getNewQty(this)" id="cartQty" type="number" class="itemQuantity" name="itemQuantity" min="0" max="100" value="${basket[i].qty}" />
                 </div>
                 <div class="cart__item__content__settings__delete">
                     <p index="${[i]}" onclick="supprimerArticle(this)" class="deleteItem">Supprimer</p>
@@ -39,7 +39,6 @@ function showBasket() {
 showBasket();
 
 console.log(basket);
-
 
 
 

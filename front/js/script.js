@@ -12,8 +12,13 @@ async function showProducts() {
         })
         .then(function (data) {
             return (products = data);
-        });
+        })
+        .catch (function err() {
+            console.log("Oh no", err)
 
+            
+        });
+            
    
     products.forEach((product) => {
         document.querySelector("#items").innerHTML += `
