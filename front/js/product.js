@@ -20,12 +20,12 @@ fetch(`http://localhost:3000/api/products/${idProduct}`)
         data.colors.forEach((option) => {
             choixColor.innerHTML += `<option value="${option}">${option}</option>`;
         });
-   })
-   .catch(function (err) {
-    console.log("Oh no", err)
-    
-   });
-    
+    })
+    .catch(function (err) {
+        console.log("Oh no", err)
+
+    });
+
 
 
 //Ajouter produit au panier lors du clique
@@ -51,13 +51,13 @@ document.getElementById("addToCart").addEventListener("click", function (e) {
         let basketElement = { image, imageAlt, name, price, choixOpt, qty, productID };
 
         //Déclaration au format js de la clé produit stocké dans le local storage
-        let localstorageBasket = JSON.parse(localStorage.getItem("produit"));
+        let localstorageBasket = JSON.parse(localStorage.getItem("product"));
 
         //Si le localstorage est vide, on créer tableau, on push le panier dedans et on stock dans localStorage
         if (!localstorageBasket) {
             localstorageBasket = [];
             localstorageBasket.push(basketElement);
-            localStorage.setItem("produit", JSON.stringify(localstorageBasket));
+            localStorage.setItem("product", JSON.stringify(localstorageBasket));
         }
         //Avant de stock dans local storage, on verifie si nom et option sont =, si = alors on incremente qty
         else {
@@ -72,7 +72,7 @@ document.getElementById("addToCart").addEventListener("click", function (e) {
                 localstorageBasket.push(basketElement);
             }
 
-            localStorage.setItem("produit", JSON.stringify(localstorageBasket));
+            localStorage.setItem("product", JSON.stringify(localstorageBasket));
         }
 
         if (qty > 1) {
