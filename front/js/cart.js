@@ -221,6 +221,27 @@ boutonCommander.addEventListener("click", function (event) {
             products: productID,
         };
 
-        console.log(commande);
+        // Création de l'entête de la requête
+        let options = {
+            method: "POST",
+            body: JSON.stringify(commande),
+            headers: { "Content-Type": "application/json" },
+        };
+        fetch("http://localhost:3000/api/products/order", options)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                localStorage.clear();
+                let orderId = data.orderId;
+                localStorage.setItem("idCommande", JSON.stringify(orderId));
+                document.location.href = `confirmation.html`;
+                window.location.assign(`confirmation.html?orderId=${orderId}`);
+            })
+            .catch(function err() {
+                console.log("Oh no", err)
+
+
+            });
     }
 });
